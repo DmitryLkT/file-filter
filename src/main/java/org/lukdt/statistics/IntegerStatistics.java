@@ -36,6 +36,6 @@ public class IntegerStatistics implements Statistics {
                 " Max: %d\n" +
                 " Sum: %d\n" +
                 " Avg: %.2f\n",
-                min, max, sum, getAvg()git);
+                min, max, sum, getAvg());
     }
 }
