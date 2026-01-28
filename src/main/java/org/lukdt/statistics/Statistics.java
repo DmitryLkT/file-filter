@@ -4,7 +4,7 @@ import org.lukdt.model.StatsType;
 
 public interface Statistics {
 
-    void acceptValue(long value);
+    void acceptValue(String value);
 
     void print(StatsType type);
 }

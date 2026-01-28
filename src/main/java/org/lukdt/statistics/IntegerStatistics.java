@@ -14,13 +14,15 @@ public class IntegerStatistics implements Statistics {
     }
 
     @Override
-    public void acceptValue(long value) {
+    public void acceptValue(String value) {
+        long num = Long.parseLong(value);
+
         count++;
 
-        if(value < min) min = value;
-        if(value > max) max = value;
+        min = Math.min(min, num);
+        max = Math.max(max, num);
 
-        sum += value;
+        sum += num;
     }
 
     @Override
