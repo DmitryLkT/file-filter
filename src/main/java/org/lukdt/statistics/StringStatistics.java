@@ -10,6 +10,8 @@ public class StringStatistics implements Statistics {
 
     @Override
     public void acceptValue(String value) {
+        if(value == null || value.isEmpty()) return;
+
         long len = value.length();
 
         count++;
@@ -24,7 +26,7 @@ public class StringStatistics implements Statistics {
 
         System.out.printf("Strings:\n Count: %d\n", count);
 
-        if(type == StatsType.SHORT) return;
+        if(type == StatsType.SHORT || count == 0) return;
 
         System.out.printf(
                 " Min length: %d\n" +
