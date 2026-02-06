@@ -66,6 +66,30 @@ public class Arguments {
             }
         }
 
+        if(inputFiles.isEmpty()) {
+            throw new IllegalArgumentException("Не указаны входные файлы");
+        }
+
         return new Arguments(outputPath, prefix, append, statsType, inputFiles);
+    }
+
+    public List<Path> getInputFiles() {
+        return inputFiles;
+    }
+
+    public Path getOutputPath() {
+        return outputPath;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public boolean isAppend() {
+        return append;
+    }
+
+    public StatsType getStatsType() {
+        return statsType;
     }
 }
