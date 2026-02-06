@@ -4,16 +4,21 @@ import org.lukdt.model.DataType;
 
 public class DataClassifier {
 
-    public DataType classify(String value) {
-        if(value == null) return DataType.STRING;
+    public static DataType classify(String value) {
+        if(value == null) return null;
 
         value = value.trim();
+        if(value.isEmpty()) return null;
 
-        if(value.isEmpty()) return DataType.STRING;
+        try {
+            Long.parseLong(value);
+            return DataType.INTEGER;
+        } catch(NumberFormatException ignored) {}
 
-        if(value.matches("[-+]?\\d+")) return DataType.INTEGER;
-
-        if(value.matches("[-+]?\\d+\\.\\d+")) return DataType.FLOAT;
+        try {
+            Double.parseDouble(value);
+            return DataType.FLOAT;
+        } catch(NumberFormatException ignored) {}
 
         return DataType.STRING;
     }
