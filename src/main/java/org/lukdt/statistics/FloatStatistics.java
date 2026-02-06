@@ -2,27 +2,34 @@ package org.lukdt.statistics;
 
 import org.lukdt.model.StatsType;
 
+import java.math.BigDecimal;
+
 public class FloatStatistics implements Statistics {
     private long count = 0;
 
-    private double min = Double.MAX_VALUE;
-    private double max = Double.MIN_VALUE;
-    private double sum = 0;
+    private BigDecimal min = null;
+    private BigDecimal max = null;
+    private BigDecimal sum = BigDecimal.ZERO;
 
     private double getAvg() {
-        return count == 0 ? 0 : (double) sum / count;
+        return count == 0 ? 0 : sum.doubleValue() / count;
     }
 
     @Override
     public void acceptValue(String value) {
-        double num = Double.parseDouble(value);
+        BigDecimal num = new BigDecimal(value);
 
         count++;
 
-        min = Math.min(min, num);
-        max = Math.max(max, num);
+        if(min == null || num.compareTo(min) < 0) {
+            min = num;
+        }
 
-        sum += num;
+        if(max == null || num.compareTo(max) > 0) {
+            max = num;
+        }
+
+        sum = sum.add(num);
     }
 
     @Override
@@ -31,13 +38,13 @@ public class FloatStatistics implements Statistics {
 
         System.out.printf("Floats:\n Count: %d\n", count);
 
-        if(type == StatsType.SHORT) return;
+        if(type == StatsType.SHORT || count == 0) return;
 
         System.out.printf(
-                " Min: %.2f\n" +
-                " Max: %.2f\n" +
-                " Sum: %.2f\n" +
-                " Avg: %.2f\n",
+                " Min: %s\n" +
+                " Max: %s\n" +
+                " Sum: %s\n" +
+                " Avg: %.10f\n",
                 min, max, sum, getAvg());
     }
 }
